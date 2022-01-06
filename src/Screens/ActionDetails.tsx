@@ -12,7 +12,7 @@ import { Button,Table,Form} from "react-bootstrap";
 
 const ActionDetails = () => {
     
-const BASE_URL = "http://localhost:300/survey_app/api";
+const BASE_URL = "http://3.109.197.149/projects/survey_app/api";
     const queryParams = useQueryParams();
     const RID =  queryParams.get("RId")?.toString();
 

@@ -49,6 +49,7 @@ const Cluster = ({ google }: Props) => {
           assembly: queryParams.get("assembly"),
         }),
       });
+      console.log(res)
       const json = await res.json();
 
       if (json.status === "ERROR") {
@@ -136,6 +137,17 @@ const Cluster = ({ google }: Props) => {
                   <th>A8</th>
                   <th>A9</th>
                   <th>A10</th>
+                  <th>A12</th>
+                  <th>A13</th>
+                  <th>A14</th>
+                  <th>A15</th>
+                  <th>A16</th>
+                  <th>A17</th>
+                  <th>A18</th>
+                  <th>A19</th>
+                  <th>A20</th>
+                  <th>A21</th>
+                  <th>A22</th>
                   <th>RECORD_ID</th>
 
                 </tr>
@@ -167,6 +179,18 @@ const Cluster = ({ google }: Props) => {
                     <td>{data.A8}</td>
                     <td>{data.A9}</td>
                     <td>{data.A10}</td>
+                    <td>{data.A11}</td>
+                    <td>{data.A12}</td>
+                    <td>{data.A13}</td>
+                    <td>{data.A14}</td>
+                    <td>{data.A15}</td>
+                    <td>{data.A16}</td>
+                    <td>{data.A17}</td>
+                    <td>{data.A18}</td>
+                    <td>{data.A19}</td>
+                    <td>{data.A20}</td>
+                    <td>{data.A21}</td>
+                    <td>{data.A22}</td>
                     <td>{data.RECORD_ID}</td>
                   </tr>
                 ))}

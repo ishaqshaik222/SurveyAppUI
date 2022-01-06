@@ -2,32 +2,30 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQueryParams } from "./custom-hooks";
+import { config } from './Constants';
 
-const BASE_URL = "http://3.109.197.149/projects/survey_app/api";
+const BASE_URL = config.url.API_URL
 
-export const FieldWorkers = () => {
+export const GrillDownData = () => {
   const queryParams = useQueryParams();
 
-  const [fieldWorkers, setFieldWorkersData] = useState<any[]>([]);
+  const [grillDownWorkers, setGrillDownWorkersData] = useState<any[]>([]);
   const [fieldWorkerLoading, setFieldWorkerLoading] = useState(false);
 
-  const getFieldWorkers = async () => {
+  const getgrillDownWorkers = async () => {
     try {
       setFieldWorkerLoading(true);
 
-      const res = await fetch(`${BASE_URL}/getFieldWorkers.php`, {
-        method: "POST",
+      const res = await fetch(`${BASE_URL}/getAssemblyGrillData.php`, {
+        method: "GET",
         headers: {
           "content-type": "application/json",
-        },
-        body: JSON.stringify({
-          manager_id: queryParams.get("managerId"),
-        }),
+        }
       });
 
       const json = await res.json();
 
-      setFieldWorkersData(json.response.REPORT);
+      setGrillDownWorkersData(json.response.REPORT);
     } catch (error) {
       console.log({ error });
     } finally {
@@ -36,26 +34,25 @@ export const FieldWorkers = () => {
   };
 
   useEffect(() => {
-    getFieldWorkers();
+    getgrillDownWorkers();
   }, []);
 
   const navigate = useNavigate();
 
   const handleClick = (
-    id: string,
-    name: string,
-    date: string,
     state: string,
-    assembly: string
+    status: string
   ) => {
-    navigate(`/details?id=${id}&name=${name}&date=${date}&state=${state}&assembly=${assembly}&managerId=${queryParams.get("managerId")}`);
+    navigate(
+      `/get-reports?state=${state}&status=${status}`
+    );
   };
 
   if (fieldWorkerLoading) {
     return <h1>Loading...</h1>;
   }
 
-  if (fieldWorkers.length === 0) {
+  if (grillDownWorkers.length === 0) {
     return <h1>No Data found!</h1>;
   }
 
@@ -66,37 +63,28 @@ export const FieldWorkers = () => {
           <thead>
             <tr>
               <th>#</th>
-              <th>Date</th>
-              <th>Field Worker</th>
-              <th>Surveys</th>
-              <th>Mobile</th>
               <th>State</th>
-              <th>Assembly</th>
+              <th>Status</th>
+              <th>Survey Counts</th>
             </tr>
           </thead>
 
           <tbody>
-            {fieldWorkers.map((data, index) => (
+            {grillDownWorkers.map((data, index) => (
               <tr
                 key={index}
                 style={{ cursor: "pointer" }}
                 onClick={() =>
                   handleClick(
-                    data.ID,
-                    data.FIRST_NAME,
-                    data.DATE,
-                    data.STATE,
-                    data.ASSEMBLY
+                    data.STATE_CD,
+                    data.STATUS
                   )
                 }
               >
                 <td>{index + 1}</td>
-                <td>{data.DATE}</td>
-                <td>{data.FIRST_NAME}</td>
+                <td>{data.STATE_CD}</td>
+                <td>{data.STATUS}</td>
                 <td>{data.SURVEYS}</td>
-                <td>{data.MOBILE}</td>
-                <td>{data.STATE}</td>
-                <td>{data.ASSEMBLY}</td>
               </tr>
             ))}
           </tbody>

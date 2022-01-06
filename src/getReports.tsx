@@ -2,32 +2,34 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQueryParams } from "./custom-hooks";
+import { config } from './Constants';
 
-const BASE_URL = "http://3.109.197.149/projects/survey_app/api";
+const BASE_URL = config.url.API_URL
 
-export const FieldWorkers = () => {
+export const GetReports = () => {
   const queryParams = useQueryParams();
 
-  const [fieldWorkers, setFieldWorkersData] = useState<any[]>([]);
+  const [reportWorkers, setReportWorkersData] = useState<any[]>([]);
   const [fieldWorkerLoading, setFieldWorkerLoading] = useState(false);
 
-  const getFieldWorkers = async () => {
+  const getreportWorkers = async () => {
     try {
       setFieldWorkerLoading(true);
 
-      const res = await fetch(`${BASE_URL}/getFieldWorkers.php`, {
+      const res = await fetch(`${BASE_URL}/getReports.php`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
         },
         body: JSON.stringify({
-          manager_id: queryParams.get("managerId"),
+          state: queryParams.get("state"),
+          status: queryParams.get("status"),
         }),
       });
 
       const json = await res.json();
 
-      setFieldWorkersData(json.response.REPORT);
+      setReportWorkersData(json.response.REPORT);
     } catch (error) {
       console.log({ error });
     } finally {
@@ -36,26 +38,25 @@ export const FieldWorkers = () => {
   };
 
   useEffect(() => {
-    getFieldWorkers();
+    getreportWorkers();
   }, []);
 
   const navigate = useNavigate();
 
   const handleClick = (
-    id: string,
-    name: string,
-    date: string,
-    state: string,
-    assembly: string
+    code: string,
+    status: string
   ) => {
-    navigate(`/details?id=${id}&name=${name}&date=${date}&state=${state}&assembly=${assembly}&managerId=${queryParams.get("managerId")}`);
+    navigate(
+      `/get-report-details?code=${code}&status=${status}`
+    );
   };
 
   if (fieldWorkerLoading) {
     return <h1>Loading...</h1>;
   }
 
-  if (fieldWorkers.length === 0) {
+  if (!reportWorkers) {
     return <h1>No Data found!</h1>;
   }
 
@@ -66,37 +67,30 @@ export const FieldWorkers = () => {
           <thead>
             <tr>
               <th>#</th>
-              <th>Date</th>
-              <th>Field Worker</th>
-              <th>Surveys</th>
-              <th>Mobile</th>
-              <th>State</th>
-              <th>Assembly</th>
+              <th>Assembly Code</th>
+              <th>Assembly Name</th>
+              <th>Completed</th>
+              <th>Status</th>
             </tr>
           </thead>
 
           <tbody>
-            {fieldWorkers.map((data, index) => (
+            {reportWorkers.map((data, index) => (
               <tr
                 key={index}
                 style={{ cursor: "pointer" }}
                 onClick={() =>
                   handleClick(
-                    data.ID,
-                    data.FIRST_NAME,
-                    data.DATE,
-                    data.STATE,
-                    data.ASSEMBLY
+                    data.ASSEMBLY_CODE,
+                    data.STATUS
                   )
                 }
               >
                 <td>{index + 1}</td>
-                <td>{data.DATE}</td>
-                <td>{data.FIRST_NAME}</td>
-                <td>{data.SURVEYS}</td>
-                <td>{data.MOBILE}</td>
-                <td>{data.STATE}</td>
-                <td>{data.ASSEMBLY}</td>
+                <td>{data.ASSEMBLY_CODE}</td>
+                <td>{data.ASSEMBLY_NAME}</td>
+                <td>{data.COMPLETED}</td>
+                <td>{data.STATUS}</td>
               </tr>
             ))}
           </tbody>
