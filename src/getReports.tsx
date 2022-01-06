@@ -48,7 +48,7 @@ export const GetReports = () => {
     status: string
   ) => {
     navigate(
-      `/get-report-details?code=${code}&status=${status}`
+      `/get-report-details?code=${code}&status=${status}&state=${queryParams.get("state")}`
     );
   };
 

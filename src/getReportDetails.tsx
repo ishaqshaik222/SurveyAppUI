@@ -31,6 +31,7 @@ export const GetReportDetails = ({ google }: Props) => {
         body: JSON.stringify({
           code: queryParams.get("code"),
           status: queryParams.get("status"),
+          state: queryParams.get("state"),
         }),
       });
 
@@ -62,16 +63,18 @@ export const GetReportDetails = ({ google }: Props) => {
       <div className="row">
         <table className="table">
           <thead>
-            <tr>
+            <tr style={{ position: "sticky", top: 0, background:"#fff" }}>
                 <th>#</th>
+                <th>Interviewer Name</th>
+                <th>Interviewer Mobile</th>
+
                 <th>Respondent</th>
                 <th>Respondent Mobile</th>
                 <th>Date Time</th>
 
                 <th>Assembly Code</th>
                 <th>Assembly Name</th>
-                <th>First Name</th>
-                <th>Mobile</th>
+                
                 <th>Latitude</th>
                 <th>Longitude</th>
                 <th>A1</th>
@@ -106,14 +109,15 @@ export const GetReportDetails = ({ google }: Props) => {
                 key={index}
                 style={{ cursor: "pointer" }}
               >
-                <td>{index + 1}</td>
-                <td>{data.RESPONDENT}</td>
+                    <td>{index + 1}</td>
+                    <td>{data.FIRST_NAME}</td>
+                    <td>{data.MOBILE}</td>
+                    <td>{data.RESPONDENT}</td>
                     <td>{data.RESPONDENT_MOBILE}</td>
                     <td>{data.DATETIME}</td>
                     <td>{data.ASSEMBLY_CODE}</td>
                     <td>{data.ASSEMBLY_NAME}</td>
-                    <td>{data.FIRST_NAME}</td>
-                    <td>{data.MOBILE}</td>
+                    
                     <td>{data.LATITUDE}</td>
                     <td>{data.LONGITUDE}</td>
 
@@ -161,20 +165,54 @@ export const GetReportDetails = ({ google }: Props) => {
               streetViewControl={false}
             >
               {reportDetailsWorker.map((marker, index) => {
-                return (
-                  <Marker
-                    key={index}
-                    // @ts-ignore
-                    label={`${index + 1}`}
-                    // @ts-ignore
-                    title={`${index + 1} ${marker.RESPONDENT.toLowerCase()} (${
-                      marker.MOBILE
-                    }) ${marker.DATETIME}`}
-                    position={{
-                      lat: marker.LATITUDE,
-                      lng: marker.LONGITUDE,
-                    }}
+                let LAT_LONG_TYPE = marker.LAT_LONG_TYPE ;
+                let newMarker;
+                console.log('is true???', LAT_LONG_TYPE === "Booth_lat_long");
+                console.log('LAT_LONG_TYPE???', LAT_LONG_TYPE );
+                if (LAT_LONG_TYPE === "Booth_lat_long" ) {
+                  newMarker = <Marker
+                  
+                  key={index}
+                  // @ts-ignore
+                  // @ts-ignore
+                  title={`${index + 1} ${marker.RESPONDENT.toLowerCase()} (${
+                    marker.MOBILE
+                  }) ${marker.DATETIME}`}
+                  position={{
+                    lat: marker.LATITUDE,
+                    lng: marker.LONGITUDE,
+                  }}
+                  icon={{
+
+                    url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png' 
+            
+                  }}
                   />
+                } else {
+                    //Set here your icon in base the condition
+                    newMarker = <Marker
+                  
+                      key={index}
+                      // @ts-ignore
+                      // @ts-ignore
+                      title={`${index + 1} ${marker.RESPONDENT.toLowerCase()} (${
+                        marker.MOBILE
+                      }) ${marker.DATETIME}`}
+                      position={{
+                        lat: marker.LATITUDE,
+                        lng: marker.LONGITUDE,
+                      }}
+                      icon={{
+    
+                        url: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png' 
+                
+                      }}
+                  />
+
+                }
+                return (
+                  
+                  newMarker
                 );
               })}
             </Map>
