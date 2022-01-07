@@ -8,7 +8,7 @@ const BASE_URL = config.url.API_URL
 
 export const GetReports = () => {
   const queryParams = useQueryParams();
-
+ 
   const [reportWorkers, setReportWorkersData] = useState<any[]>([]);
   const [fieldWorkerLoading, setFieldWorkerLoading] = useState(false);
 
@@ -48,7 +48,7 @@ export const GetReports = () => {
     status: string
   ) => {
     navigate(
-      `/get-report-details?code=${code}&status=${status}&state=${queryParams.get("state")}`
+      `/get-report-details?code=${code}&status=${status}&state=${queryParams.get("state")}&managerId=${queryParams.get("managerId")}`
     );
   };
 

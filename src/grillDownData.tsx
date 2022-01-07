@@ -8,7 +8,7 @@ const BASE_URL = config.url.API_URL
 
 export const GrillDownData = () => {
   const queryParams = useQueryParams();
-
+  const managerId =  queryParams.get("managerId")?.toString();
   const [grillDownWorkers, setGrillDownWorkersData] = useState<any[]>([]);
   const [fieldWorkerLoading, setFieldWorkerLoading] = useState(false);
 
@@ -44,7 +44,7 @@ export const GrillDownData = () => {
     status: string
   ) => {
     navigate(
-      `/get-reports?state=${state}&status=${status}`
+      `/get-reports?state=${state}&status=${status}&managerId=${managerId}`
     );
   };
 

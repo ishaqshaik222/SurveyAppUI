@@ -9,13 +9,14 @@ import {
   GoogleApiWrapper,
 } from "google-maps-react";
 import { Button,Table} from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const BASE_URL = config.url.API_URL
 interface Props extends IProvidedProps {}
 
 export const GetReportDetails = ({ google }: Props) => {
+  const navigate = useNavigate();
   const queryParams = useQueryParams();
-
   const [reportDetailsWorker, setReportDetailsWorkerData] = useState<any[]>([]);
   const [fieldWorkerLoading, setFieldWorkerLoading] = useState(false);
 
@@ -49,6 +50,10 @@ export const GetReportDetails = ({ google }: Props) => {
     getreportDetailsWorker();
   }, []);
 
+  const actionOnCLick = (data:any)=>{
+    const managerId =  queryParams.get("managerId")?.toString();
+    navigate(`/actions?RId=${data.RECORD_ID}&managerId=${managerId}`);
+  }
 
   if (fieldWorkerLoading) {
     return <h1>Loading...</h1>;
@@ -109,6 +114,13 @@ export const GetReportDetails = ({ google }: Props) => {
                 key={index}
                 style={{ cursor: "pointer" }}
               >
+                <td>
+                  <Button variant="secondary" onClick={() =>
+                    actionOnCLick(data)
+
+                  }
+                  >Action</Button >{' '}
+                </td>
                     <td>{index + 1}</td>
                     <td>{data.FIRST_NAME}</td>
                     <td>{data.MOBILE}</td>
