@@ -167,15 +167,14 @@ export const GetReportDetails = ({ google }: Props) => {
               {reportDetailsWorker.map((marker, index) => {
                 let LAT_LONG_TYPE = marker.LAT_LONG_TYPE ;
                 let newMarker;
-                console.log('is true???', LAT_LONG_TYPE === "Booth_lat_long");
-                console.log('LAT_LONG_TYPE???', LAT_LONG_TYPE );
                 if (LAT_LONG_TYPE === "Booth_lat_long" ) {
                   newMarker = <Marker
                   
                   key={index}
                   // @ts-ignore
+                  label={`${marker.BOOT_NO}`}
                   // @ts-ignore
-                  title={`${index + 1} ${marker.RESPONDENT.toLowerCase()} (${
+                  title={`${index + 1} ${marker.BOOT_NO} ${marker.RESPONDENT.toLowerCase()} (${
                     marker.MOBILE
                   }) ${marker.DATETIME}`}
                   position={{
