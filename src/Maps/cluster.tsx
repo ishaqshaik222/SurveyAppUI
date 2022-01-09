@@ -149,6 +149,8 @@ const Cluster = ({ google }: Props) => {
                   <th>A21</th>
                   <th>A22</th>
                   <th>RECORD_ID</th>
+                  <th>Audit Status</th>
+                  <th>Comments</th>
 
                 </tr>
               </thead>
@@ -192,6 +194,8 @@ const Cluster = ({ google }: Props) => {
                     <td>{data.A21}</td>
                     <td>{data.A22}</td>
                     <td>{data.RECORD_ID}</td>
+                    <td>{data.AUDIT_STATUS}</td>
+                    <td>{data.COMMENTS}</td>
                   </tr>
                 ))}
               </tbody>

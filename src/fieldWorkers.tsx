@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
+import { Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useQueryParams } from "./custom-hooks";
 
@@ -14,7 +15,6 @@ export const FieldWorkers = () => {
   const getFieldWorkers = async () => {
     try {
       setFieldWorkerLoading(true);
-
       const res = await fetch(`${BASE_URL}/getFieldWorkers.php`, {
         method: "POST",
         headers: {
@@ -26,8 +26,9 @@ export const FieldWorkers = () => {
       });
 
       const json = await res.json();
-
+      if(json.response !=='SURVEY_LIST_EMPTY'){
       setFieldWorkersData(json.response.REPORT);
+    }else{ }
     } catch (error) {
       console.log({ error });
     } finally {
@@ -55,8 +56,8 @@ export const FieldWorkers = () => {
     return <h1>Loading...</h1>;
   }
 
-  if (fieldWorkers.length === 0) {
-    return <h1>No Data found!</h1>;
+  if (fieldWorkers?.length === 0) {
+    return <h1 >No Data found!</h1>;
   }
 
   return (

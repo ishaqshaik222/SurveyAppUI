@@ -16,6 +16,7 @@ const BASE_URL = "http://3.109.197.149/projects/survey_app/api";
     const queryParams = useQueryParams();
     const RID =  queryParams.get("RId")?.toString();
 
+    let sessionDetails = sessionStorage.getItem('userDetails') !=null ?  JSON.parse(sessionStorage.getItem('userDetails') || '{}') : {}
 
     const [formData, setFormData] = useState({
         
@@ -23,7 +24,7 @@ const BASE_URL = "http://3.109.197.149/projects/survey_app/api";
         'comments':"",
         'auditType':"",
         'status':"Valid",
-        'createdBy': queryParams.get("managerId")?.toString(),
+        'createdBy': sessionDetails,
 
     })
     const onSubmit = () => {

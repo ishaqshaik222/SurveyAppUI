@@ -24,7 +24,7 @@ const Reports=()=>{
         };
     
     const submitQuery=(query: any)=>{
-        navigate('/reportresults', { state: query });
+        navigate('/report-results', { state: query });
     }
     useEffect(() => {
         fetchReportsData()
