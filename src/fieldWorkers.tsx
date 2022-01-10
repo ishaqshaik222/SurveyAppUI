@@ -49,7 +49,8 @@ export const FieldWorkers = () => {
     state: string,
     assembly: string
   ) => {
-    navigate(`/details?id=${id}&name=${name}&date=${date}&state=${state}&assembly=${assembly}&managerId=${queryParams.get("managerId")}`);
+    let navigationData =`/details?id=${id}&name=${name}&date=${date}&state=${state}&assembly=${assembly}&managerId=${queryParams.get("managerId")}`
+    navigate(`/details?id=${id}&name=${name}&date=${date}&state=${state}&assembly=${assembly}&managerId=${queryParams.get("managerId")}`,{ state:navigationData  });
   };
 
   if (fieldWorkerLoading) {

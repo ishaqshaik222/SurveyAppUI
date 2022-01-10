@@ -55,7 +55,7 @@ export default function Navigation() {
                  <div style={{marginTop:'10vh'}}>
                  <Routes>
                      <Route path="/field-works" element={<FieldWorkers />} />
-                     <Route path="/actions" element={<ActionDetails />} />
+                     <Route path="/actions"  element={<ActionDetails />} />
                      <Route path="/details" element={<Cluster />} />
                      <Route path="/get-assembly-grill-down-data" element={<GrillDownData />} />
                      <Route path="/get-report-details" element={<GetReportDetails />} />

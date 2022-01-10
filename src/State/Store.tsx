@@ -12,6 +12,7 @@ const initialState = {
         dob: null,
         maritalStatus: null,
         countryCode: null,
+        managerId:0,
     },
   
     error: null,

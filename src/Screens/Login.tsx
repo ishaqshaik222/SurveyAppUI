@@ -31,13 +31,14 @@ const Login = () => {
                     let dbResponse=resultData.response.REPORT[0];
                     dispatch({
                         type:'UPDATE_LOGIN_DATA',
-                        payload: {'status':'AUTHORIZED','userId':dbResponse.ID,'userName':dbResponse.USERNAME}
+                        payload: {'status':'AUTHORIZED','userId':dbResponse.ID,'userName':dbResponse.USERNAME,'managerId':formData.managerId}
                     })
                     debugger;
                     let sessionData =STATE.user
                     sessionData.status = 'AUTHORIZED';
                     sessionData.userId =dbResponse.ID;
                     sessionData.userName =dbResponse.USERNAME;
+                    sessionData.managerId = formData.managerId;
                     sessionStorage.setItem('userDetails' ,JSON.stringify(sessionData) )
                     navigate('/field-works?managerId='+formData.managerId);
                 }else{alert("login failed please contact admin")}

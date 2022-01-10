@@ -8,10 +8,16 @@ import {
 import moment from "moment";
 import { useQueryParams } from "../custom-hooks";
 import { Button,Table,Form} from "react-bootstrap";
-
+import { useNavigate, useParams  } from "react-router-dom";
 
 const ActionDetails = () => {
+    debugger;
+    const params = useParams();
     
+    // let history = useNavigate ();
+    // const goToPreviousPath = () => {
+        
+    // }
 const BASE_URL = "http://3.109.197.149/projects/survey_app/api";
     const queryParams = useQueryParams();
     const RID =  queryParams.get("RId")?.toString();
@@ -24,13 +30,13 @@ const BASE_URL = "http://3.109.197.149/projects/survey_app/api";
         'comments':"",
         'auditType':"",
         'status':"Valid",
-        'createdBy': sessionDetails,
+        'createdBy': sessionDetails.userId,
 
     })
     const onSubmit = () => {
       console.log(formData)
       getFieldWorkers();
-      alert('Data Submitted Successfully')
+      alert('Data Submitted Successfully');
     }
     const onChangeText = useCallback((key,value) => {
         console.log("value",value)
