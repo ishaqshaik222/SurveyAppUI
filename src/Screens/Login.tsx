@@ -10,6 +10,11 @@ const Login = () => {
     console.log("STATE",STATE)
     const navigate = useNavigate();
     //  dispatch({type: 'TYPE', payload: {data: 'to update'}})
+    const onSignup=()=>{
+debugger
+navigate('/signUp');
+
+    }
     const onSubmit=()=>{
         debugger;
      
@@ -106,8 +111,8 @@ const Login = () => {
             </Row>
             <Stack direction="horizontal" gap={3}>
                 <Button variant="primary" onClick={()=>onSubmit()}>Login</Button>
-                {/* <div className="vr" /> */}
-                {/* <Button variant="secondary">Sign up</Button> */}
+                { <div className="vr" /> }
+                { <Button variant="secondary" onClick={()=>onSignup()}>Sign up</Button> }
             </Stack>
         </Container>
     );
