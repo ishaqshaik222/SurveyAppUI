@@ -40,7 +40,7 @@ const Login = () => {
                     sessionData.userName =dbResponse.USERNAME;
                     sessionData.managerId = formData.managerId;
                     sessionStorage.setItem('userDetails' ,JSON.stringify(sessionData) )
-                    navigate('/field-works?managerId='+formData.managerId);
+                    navigate('/Dashboard',{ state: sessionData.managerId });
                 }else{alert("login failed please contact admin")}
                     // setData(resultData.response.REPORT)
                 })

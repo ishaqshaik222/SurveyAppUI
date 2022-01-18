@@ -10,6 +10,7 @@ import { GrillDownData } from "../grillDownData";
 import { GetReports } from '../getReports';
 import GetReportDetails from '../getReportDetails';
 import Login from "../Screens/Login";
+import Dashboard from '../Screens/Dashboard';
 import { Context } from '../State/Store'
 import { Table,Container, Navbar, Button } from "react-bootstrap";
 export default function Navigation() {
@@ -54,6 +55,7 @@ export default function Navigation() {
                  </div>
                  <div style={{marginTop:'10vh'}}>
                  <Routes>
+                     <Route path="/Dashboard" element={<Dashboard/>} />
                      <Route path="/field-works" element={<FieldWorkers />} />
                      <Route path="/actions"  element={<ActionDetails />} />
                      <Route path="/details" element={<Cluster />} />
