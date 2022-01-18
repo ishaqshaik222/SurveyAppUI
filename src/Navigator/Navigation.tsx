@@ -13,6 +13,7 @@ import Login from "../Screens/Login";
 import Dashboard from '../Screens/Dashboard';
 import { Context } from '../State/Store'
 import { Table,Container, Navbar, Button } from "react-bootstrap";
+import SignUp from '../Screens/Signup';
 export default function Navigation() {
     const [STATE,dispatch] = useContext(Context);
      const navigate = useNavigate()
@@ -75,6 +76,7 @@ export default function Navigation() {
         <div>
 
             <Routes><Route path="/" element={<Login />} /></Routes>
+            <Routes><Route path="/signUp" element={<SignUp />} /></Routes>
         </div>)
     }
     
