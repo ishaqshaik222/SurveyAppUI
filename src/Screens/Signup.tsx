@@ -47,7 +47,7 @@ const SignUp = () => {
         
         "username":"",
         "password":"",
-        "status":"",
+        // "status":"",
         "fname":"",
         "lname":"",
         "mname":"",
@@ -91,7 +91,7 @@ const SignUp = () => {
                 <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>
 
-                <Form.Group className="mb-3">
+                {/* <Form.Group className="mb-3">
                 <Form.Label>Status *</Form.Label>
                 <Form.Control
                     required
@@ -101,7 +101,7 @@ const SignUp = () => {
                     value={formData.status} onChange={(value)=>onChangeText('status',value.target.value)} 
                 />
                 <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                </Form.Group>
+                </Form.Group> */}
                 <Form.Group className="mb-3">
                 <Form.Label>FirstName *</Form.Label>
                 <Form.Control

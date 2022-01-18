@@ -2,8 +2,10 @@ import React, { useCallback, useContext, useState } from "react";
 import { Form, Row, Col, Button, Container, Stack } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import BASE_URL from "../Helpers/Constants";
-import {Context} from '../State/Store'
-
+import {Context} from '../State/Store';
+import * as XLSX from 'xlsx';
+import * as FileSaver from 'file-saver';
+import {ExportToCSV} from '../ExportCSV';
 
 const Login = () => {
     const [STATE, dispatch] = useContext(Context)
@@ -15,10 +17,51 @@ debugger
 navigate('/signUp');
 
     }
+
+    const ExportToExcel=()=>{
+        debugger
+      
+        const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+        const fileExtension = '.xlsx';
+        const fileName ='testfile';
+
+        const exportToCSV=(csvData:any,fileName:any)=>{
+            debugger
+            const ws=XLSX.utils.json_to_sheet (csvData);
+
+            const wb=  { Sheets: { 'data': ws }, SheetNames: ['data'] };
+
+            const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+
+            const data= new Blob([excelBuffer], {type:fileType});
+
+            FileSaver.saveAs(data, fileName + fileExtension);
+
+          }
+    //     const excelFileName='demo';
+    //     const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    //     const EXCEL_EXTENSION = '.xlsx';
+    //   const  exportAsExcelFile=(viewers, excelFileName)=> {
+    // debugger
+    //         const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(viewers);
+    //         console.log('worksheet',worksheet);
+    //         const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+    //         const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    //         saveAsExcelFile(excelBuffer, excelFileName);
+    //       }
+        
+    //       const saveAsExcelFile = (buffer: any, fileName: string)=> {
+    //         const data: Blob = new Blob([buffer], {
+    //           type: EXCEL_TYPE
+    //         });
+    //         FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+    //       }
+        
+    }
+
     const onSubmit=()=>{
         debugger;
-     
-        
+       
         if(formData.managerId!=''&& formData.userId!="" && formData.password!=""){
             const URL = `${BASE_URL}/surveyAppLogin.php`
             fetch(URL, {
@@ -70,6 +113,14 @@ navigate('/signUp');
         })
     }, [formData])
 
+    const viewers=[
+        {id:1,name:'name1'},
+        {id:2,name:'name2'},
+        {id:3,name:'name3'},
+        {id:4,name:'name4'}
+    ]
+    const filename='testfile'
+
     return (
         <Container fluid="xl">
             <h1>Login</h1>
@@ -113,7 +164,12 @@ navigate('/signUp');
                 <Button variant="primary" onClick={()=>onSubmit()}>Login</Button>
                 { <div className="vr" /> }
                 { <Button variant="secondary" onClick={()=>onSignup()}>Sign up</Button> }
+                {/* { <Button variant="secondary" onClick={()=>ExportToExcel()}>Export</Button> }  */}
+                <div>
+                <ExportToCSV csvData={viewers} fileName={filename} />
+                </div>
             </Stack>
+            
         </Container>
     );
 }
