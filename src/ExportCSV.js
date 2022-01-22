@@ -1,6 +1,7 @@
 import React from "react";
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
+import { Container, Stack } from "react-bootstrap";
 
 export const ExportToCSV =({csvData,fileName})=>{
 
@@ -8,8 +9,8 @@ export const ExportToCSV =({csvData,fileName})=>{
         const fileExtension = '.xlsx';
         
         const exportToCSV=(csvData,fileName)=>{
-
-    const ws=XLSX.utils.json_to_sheet (csvData);
+            debugger
+            const ws=XLSX.utils.json_to_sheet (csvData);
             const wb=  { Sheets: { 'data': ws }, SheetNames: ['data'] };
             const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
             const data= new Blob([excelBuffer], {type:fileType});
@@ -18,7 +19,10 @@ export const ExportToCSV =({csvData,fileName})=>{
           }
 
           return(
-              <button variant="secondary" onClick={(e)=>exportToCSV(csvData,fileName)}>Export</button>
+
+                <button variant="secondary" onClick={(e)=>exportToCSV(csvData,fileName)}>Export</button>
+
+             
           )
         
 }

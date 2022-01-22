@@ -10,8 +10,48 @@ import {
 } from "google-maps-react";
 import { Button,Table} from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { ExportToCSV } from "./ExportCSV";
 
 const BASE_URL = config.url.API_URL
+
+export class excel{
+  Sno:string="";
+  InterviewerName:string="";
+  InterviewerMobile:string="";
+  Respodent:string="";
+  RespodentMobile:string="";
+  DateTime:string="";
+  AssemblyCode:string="";
+  AssemblyName:string="";
+  Latitude:string="";
+  Longitude:string="";
+  A1:string="";
+  A2:string="";
+  A3:string="";
+  A4:string="";
+  A5:string="";
+  A6:string="";
+  A7:string="";
+  A8:string="";
+  A9:string="";
+  A10:string="";
+  A11:string="";
+  A12:string="";
+  A13:string="";
+  A14:string="";
+  A15:string="";
+  A16:string="";
+  A17:string="";
+  A18:string="";
+  A19:string="";
+  A20:string="";
+  A21:string="";
+  A22:string="";
+  RecordId:string="";
+ 
+
+}
+
 interface Props extends IProvidedProps {}
 
 export const GetReportDetails = ({ google }: Props) => {
@@ -19,6 +59,13 @@ export const GetReportDetails = ({ google }: Props) => {
   const queryParams = useQueryParams();
   const [reportDetailsWorker, setReportDetailsWorkerData] = useState<any[]>([]);
   const [fieldWorkerLoading, setFieldWorkerLoading] = useState(false);
+
+
+  const [excelLogs1, setexcelLogs1] = useState([]);
+
+  const filename='Report-Details'
+
+   const excelLogs:any=[];
 
   const getreportDetailsWorker = async () => {
     try {
@@ -37,13 +84,60 @@ export const GetReportDetails = ({ google }: Props) => {
       });
 
       const json = await res.json();
-
+      debugger
       setReportDetailsWorkerData(json.response.REPORT);
+
+      for (let i = 0; i <= json.response.REPORT.length; i++) {
+
+        const excel1=new excel();
+        if(json.response.REPORT[i]!=undefined){
+
+          excel1.Sno=(i+1).toString();
+          excel1.InterviewerName=json.response.REPORT[i].FIRST_NAME;
+          excel1.InterviewerMobile=json.response.REPORT[i].MOBILE;
+          excel1.Respodent=json.response.REPORT[i].RESPONDENT;
+          excel1.RespodentMobile=json.response.REPORT[i].RESPONDENT_MOBILE;
+          excel1.DateTime=json.response.REPORT[i].DATETIME;
+          excel1.AssemblyCode=json.response.REPORT[i].ASSEMBLY_CODE;
+          excel1.AssemblyName=json.response.REPORT[i].ASSEMBLY_NAME;
+          excel1.Latitude=json.response.REPORT[i].LATITUDE;
+          excel1.Longitude=json.response.REPORT[i].LONGITUDE;
+          excel1.A1=json.response.REPORT[i].A1;
+          excel1.A2=json.response.REPORT[i].A2;
+          excel1.A3=json.response.REPORT[i].A3;
+          excel1.A4=json.response.REPORT[i].A4;
+          excel1.A5=json.response.REPORT[i].A5;
+          excel1.A6=json.response.REPORT[i].A6;
+          excel1.A7=json.response.REPORT[i].A7;
+          excel1.A8=json.response.REPORT[i].A8;
+          excel1.A9=json.response.REPORT[i].A9;
+          excel1.A10=json.response.REPORT[i].A10;
+          excel1.A11=json.response.REPORT[i].A11;
+          excel1.A12=json.response.REPORT[i].A12;
+          excel1.A13=json.response.REPORT[i].A13;
+          excel1.A14=json.response.REPORT[i].A14;
+          excel1.A15=json.response.REPORT[i].A15;
+          excel1.A16=json.response.REPORT[i].A16;
+          excel1.A17=json.response.REPORT[i].A17;
+          excel1.A18=json.response.REPORT[i].A18;
+          excel1.A19=json.response.REPORT[i].A19;
+          excel1.A20=json.response.REPORT[i].A20;
+          excel1.A21=json.response.REPORT[i].A21;
+          excel1.A22=json.response.REPORT[i].A22;
+          excel1.RecordId=json.response.REPORT[i].RECORD_ID;
+
+          excelLogs.push(excel1);
+
+        }
+        debugger
+      }
+
     } catch (error) {
       console.log({ error });
     } finally {
       setFieldWorkerLoading(false);
     }
+    setexcelLogs1(excelLogs);
   };
 
   useEffect(() => {
@@ -66,10 +160,14 @@ export const GetReportDetails = ({ google }: Props) => {
   return (
     <div className="container p-5">
       <div className="row">
+      <div className="col-md-3">
+                <ExportToCSV csvData={excelLogs1} fileName={filename} />
+          </div>
         <table className="table">
           <thead>
             <tr style={{ position: "sticky", top: 0, background:"#fff" }}>
                 <th>#</th>
+                <th>Sno</th>
                 <th>Interviewer Name</th>
                 <th>Interviewer Mobile</th>
 

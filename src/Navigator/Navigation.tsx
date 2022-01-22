@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Reports from "../Screens/Reports";
 import ReportResults from "../Screens/ReportResults";
 import { GrillDownData } from "../grillDownData";
+import { ApproveUsers } from "../ApproveUsers";
 import { GetReports } from '../getReports';
 import GetReportDetails from '../getReportDetails';
 import Login from "../Screens/Login";
@@ -63,6 +64,7 @@ export default function Navigation() {
                      <Route path="/get-assembly-grill-down-data" element={<GrillDownData />} />
                      <Route path="/get-report-details" element={<GetReportDetails />} />
                      <Route path="/get-reports" element={<GetReports />} />
+                     <Route path="/get-Approve-Users" element={<ApproveUsers />} />
                      <Route path="/login" element={<Login />} />
                      <Route path="/report-results" element={<ReportResults />} />
                      <Route path="/reports" element={<Reports />} />

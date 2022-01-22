@@ -13,6 +13,9 @@ const Dashboard=(props:any)=>{
    const navigateToDrillDownReports =()=>{
     navigate('/get-assembly-grill-down-data?managerId='+state);
    }
+   const navigateToApproveUsers =()=>{
+    navigate('/get-Approve-Users?managerId='+state);
+   }
    const navigateToFieldWorkers =()=>{
     navigate('/field-works?managerId='+state);
    }
@@ -51,6 +54,18 @@ const Dashboard=(props:any)=>{
                     </Card.Text>
                     <Button variant="primary" onClick={()=>{
                         navigateToDrillDownReports()
+                    }}  >Go to Drill-down Reports</Button>
+                </Card.Body>
+            </Card>
+            <Card style={{width: '18rem',float:'left',marginTop: '25px',marginLeft:'20px'}}>
+                {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
+                <Card.Body>
+                    <Card.Title>Approve-users</Card.Title>
+                    <Card.Text>
+                        Click below button to navigate to Drill-down  Reports.
+                    </Card.Text>
+                    <Button variant="primary" onClick={()=>{
+                        navigateToApproveUsers()
                     }}  >Go to Drill-down Reports</Button>
                 </Card.Body>
             </Card>
