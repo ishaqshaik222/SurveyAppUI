@@ -160,6 +160,7 @@ const Cluster = ({ google }: Props) => {
 
   const actionOnCLick = (data:any)=>{
     const managerId =  queryParams.get("managerId")?.toString();
+    sessionStorage.setItem("detailsURL", window.location.href.split('/#/')[1])
     navigate(`/actions?RId=${data.RECORD_ID}&managerId=${managerId}`);
   }
 

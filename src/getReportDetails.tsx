@@ -35,23 +35,12 @@ export class excel{
   A8:string="";
   A9:string="";
   A10:string="";
-  A11:string="";
-  A12:string="";
-  A13:string="";
-  A14:string="";
-  A15:string="";
-  A16:string="";
-  A17:string="";
-  A18:string="";
-  A19:string="";
-  A20:string="";
-  A21:string="";
-  A22:string="";
+  
   RecordId:string="";
- 
-
+  AUDIT_STATUS:string="";
+  COMMENTS:string ="";
+  AUDITOR:string="";
 }
-
 interface Props extends IProvidedProps {}
 
 export const GetReportDetails = ({ google }: Props) => {
@@ -86,7 +75,7 @@ export const GetReportDetails = ({ google }: Props) => {
       const json = await res.json();
       debugger
       setReportDetailsWorkerData(json.response.REPORT);
-
+      debugger
       for (let i = 0; i <= json.response.REPORT.length; i++) {
 
         const excel1=new excel();
@@ -112,24 +101,13 @@ export const GetReportDetails = ({ google }: Props) => {
           excel1.A8=json.response.REPORT[i].A8;
           excel1.A9=json.response.REPORT[i].A9;
           excel1.A10=json.response.REPORT[i].A10;
-          excel1.A11=json.response.REPORT[i].A11;
-          excel1.A12=json.response.REPORT[i].A12;
-          excel1.A13=json.response.REPORT[i].A13;
-          excel1.A14=json.response.REPORT[i].A14;
-          excel1.A15=json.response.REPORT[i].A15;
-          excel1.A16=json.response.REPORT[i].A16;
-          excel1.A17=json.response.REPORT[i].A17;
-          excel1.A18=json.response.REPORT[i].A18;
-          excel1.A19=json.response.REPORT[i].A19;
-          excel1.A20=json.response.REPORT[i].A20;
-          excel1.A21=json.response.REPORT[i].A21;
-          excel1.A22=json.response.REPORT[i].A22;
           excel1.RecordId=json.response.REPORT[i].RECORD_ID;
-
+          excel1.AUDIT_STATUS =json.response.REPORT[i].AUDIT_STATUS;
+          excel1.COMMENTS =json.response.REPORT[i].COMMENTS;
+          excel1.AUDITOR =json.response.REPORT[i].AUDITOR;
           excelLogs.push(excel1);
-
         }
-        debugger
+       
       }
 
     } catch (error) {
@@ -146,6 +124,7 @@ export const GetReportDetails = ({ google }: Props) => {
 
   const actionOnCLick = (data:any)=>{
     const managerId =  queryParams.get("managerId")?.toString();
+    sessionStorage.setItem("detailsURL", window.location.href.split('/#/')[1])
     navigate(`/actions?RId=${data.RECORD_ID}&managerId=${managerId}`);
   }
 
@@ -158,16 +137,21 @@ export const GetReportDetails = ({ google }: Props) => {
   }
 
   return (
-    <div className="container p-5">
+    <div className="container">
       <div className="row">
       <div className="col-md-3">
                 <ExportToCSV csvData={excelLogs1} fileName={filename} />
-          </div>
-        <table className="table">
+      </div>
+        <Table bordered hover >
           <thead>
             <tr style={{ position: "sticky", top: 0, background:"#fff" }}>
                 <th>#</th>
                 <th>Sno</th>
+                
+                <th>Audit_Status</th>
+                <th>comments</th>
+                <th>RECORD_ID</th>
+                <th>Auditor</th>
                 <th>Interviewer Name</th>
                 <th>Interviewer Mobile</th>
 
@@ -190,19 +174,7 @@ export const GetReportDetails = ({ google }: Props) => {
                 <th>A8</th>
                 <th>A9</th>
                 <th>A10</th>
-                <th>A11</th>
-                <th>A12</th>
-                <th>A13</th>
-                <th>A14</th>
-                <th>A15</th>
-                <th>A16</th>
-                <th>A17</th>
-                <th>A18</th>
-                <th>A19</th>
-                <th>A20</th>
-                <th>A21</th>
-                <th>A22</th>
-                <th>RECORD_ID</th>
+                
             </tr>
           </thead>
 
@@ -220,6 +192,10 @@ export const GetReportDetails = ({ google }: Props) => {
                   >Action</Button >{' '}
                 </td>
                     <td>{index + 1}</td>
+                    <td>{data.AUDIT_STATUS}</td>
+                    <td>{data.COMMENTS}</td>
+                    <td>{data.AUDITOR}</td>
+                    <td>{data.RECORD_ID}</td>
                     <td>{data.FIRST_NAME}</td>
                     <td>{data.MOBILE}</td>
                     <td>{data.RESPONDENT}</td>
@@ -241,26 +217,12 @@ export const GetReportDetails = ({ google }: Props) => {
                     <td>{data.A8}</td>
                     <td>{data.A9}</td>
                     <td>{data.A10}</td>
-
-                    <td>{data.A11}</td>
-                    <td>{data.A12}</td>
-                    <td>{data.A13}</td>
-                    <td>{data.A14}</td>
-                    <td>{data.A15}</td>
-                    <td>{data.A16}</td>
-                    <td>{data.A17}</td>
-                    <td>{data.A18}</td>
-                    <td>{data.A19}</td>
-                    <td>{data.A20}</td>
-
-                    <td>{data.A21}</td>
-                    <td>{data.A22}</td>
-
-                    <td>{data.RECORD_ID}</td>
+                   
+                    
               </tr>
             ))}
           </tbody>
-        </table>
+        </Table>
       </div>
       <div className="row">
             <Map

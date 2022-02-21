@@ -12,6 +12,7 @@ import { useNavigate, useParams  } from "react-router-dom";
 
 const ActionDetails = () => {
     debugger;
+    const navigate = useNavigate();
     const params = useParams();
     
     // let history = useNavigate ();
@@ -37,6 +38,8 @@ const BASE_URL = "http://3.109.197.149/projects/survey_app/api";
       console.log(formData)
       getFieldWorkers();
       alert('Data Submitted Successfully');
+      let urlParams = sessionStorage.getItem("detailsURL")?.toString();
+      navigate("/"+urlParams);
     }
     const onChangeText = useCallback((key,value) => {
         console.log("value",value)
