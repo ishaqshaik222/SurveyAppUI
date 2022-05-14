@@ -10,6 +10,7 @@ import { GrillDownData } from "../grillDownData";
 import { ApproveUsers } from "../ApproveUsers";
 import { GetReports } from '../getReports';
 import GetReportDetails from '../getReportDetails';
+import GetOnCallReportDetails from '../getOnCallReports';
 import Login from "../Screens/Login";
 import Dashboard from '../Screens/Dashboard';
 import { Context } from '../State/Store'
@@ -68,6 +69,7 @@ export default function Navigation() {
                      <Route path="/login" element={<Login />} />
                      <Route path="/report-results" element={<ReportResults />} />
                      <Route path="/reports" element={<Reports />} />
+                     <Route path='/on-call-report' element={<GetOnCallReportDetails />} />
                  </Routes>
                  </div>
             </div>

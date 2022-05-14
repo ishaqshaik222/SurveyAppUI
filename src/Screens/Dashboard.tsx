@@ -19,6 +19,10 @@ const Dashboard=(props:any)=>{
    const navigateToFieldWorkers =()=>{
     navigate('/field-works?managerId='+state);
    }
+   const navigateToOnCallReports =() =>{
+
+    navigate('/on-call-report?managerId='+state);
+   }
     return (
         <div>
             <Card style={{ width: '18rem',float:'left',marginTop: '25px',marginLeft:'20px' }}>
@@ -55,6 +59,18 @@ const Dashboard=(props:any)=>{
                     <Button variant="primary" onClick={()=>{
                         navigateToDrillDownReports()
                     }}  >Go to Drill-down Reports</Button>
+                </Card.Body>
+            </Card>
+            <Card style={{width: '18rem',float:'left',marginTop: '25px',marginLeft:'20px'}}>
+                {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
+                <Card.Body>
+                    <Card.Title>On-Call Reports</Card.Title>
+                    <Card.Text>
+                        Click below button to navigate to On-Call  Reports.
+                    </Card.Text>
+                    <Button variant="primary" onClick={()=>{
+                        navigateToOnCallReports()
+                    }}  >Go to On call Reports</Button>
                 </Card.Body>
             </Card>
             <Card style={{width: '18rem',float:'left',marginTop: '25px',marginLeft:'20px'}}>
